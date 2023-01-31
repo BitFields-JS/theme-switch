@@ -1,0 +1,27 @@
+<html class="theme-blue-yellow">
+
+	<head>
+		<title>Example</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8">
+		<link type="text/css" rel="stylesheet" href="./styles.css">
+	</head>
+
+	<body>
+		<theme-switch themes="theme-blue-yellow theme-dark-silver theme-deep-purple" default="theme-blue-yellow"
+			key="my-themes">
+			<button id="theme-switch" onclick="parentNode.switch()">Toggle Theme</button>
+		</theme-switch>
+
+		<div class="box-container">
+			<div class="box">0</div>
+			<div class="box">1</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+			<div class="box">4</div>
+		</div>
+	</body>
+
+	<script src="../src/main.js" type="module"></script>
+
+</html>

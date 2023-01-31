@@ -1,0 +1,56 @@
+:root {
+	--p-sm: 0.5rem;
+	--font-lg: 2rem;
+	--m-sm: 0.5rem;
+	--primary-color: black;
+	--secondary-color: green;
+	--background-color: white;
+}
+
+.theme-blue-yellow {
+	--primary-color: #33cccc;
+	--secondary-color: #cccc33;
+	--background-color: #051414;
+}
+
+.theme-dark-silver {
+	--primary-color: #ffffff;
+	--secondary-color: #bbbbbb;
+	--background-color: #303030;
+}
+
+.theme-deep-purple {
+	--primary-color: #7a00dd;
+	--secondary-color: #addd00;
+	--background-color: #18002b;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	color: var(--primary-color);
+	background: var(--background-color);
+}
+
+html {
+	background: var(--background-color);
+	color: var(--primary-color);
+}
+
+.box-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: var(--primary-color);
+	background: var(--background-color);
+	box-shadow: 0px 0px 12px -6px var(--secondary-color);
+}
