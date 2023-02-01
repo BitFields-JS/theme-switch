@@ -39,3 +39,5 @@
     <button id="theme-switch" onclick="parentNode.switch()">Toggle Theme</button>
    </theme-switch>
 ```
+
+[![Node.js Package](https://github.com/BitFields/theme-switch/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/BitFields/theme-switch/actions/workflows/npm-publish.yml)
