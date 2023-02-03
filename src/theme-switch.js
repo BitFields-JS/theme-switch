@@ -1,8 +1,3 @@
-
-
-window.customElements.define('theme-switch', ThemeSwitch);
-
-
 export class ThemeSwitch extends HTMLElement {
 	/*
 		Custom elements based theme switcher
@@ -47,3 +42,5 @@ export class ThemeSwitch extends HTMLElement {
 		document.querySelector(':root').className = this.themes[index];
 	}
 }
+
+window.customElements.define('theme-switch', ThemeSwitch);
