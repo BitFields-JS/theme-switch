@@ -2,7 +2,7 @@
   "name": "theme-switch",
   "version": "1.0.0",
   "description": "theme switch based on custom elements",
-  "main": "index.js",
+  "main": "theme-switch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
