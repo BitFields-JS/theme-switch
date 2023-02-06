@@ -1,4 +1,4 @@
-export class ThemeSwitch extends HTMLElement {
+class ThemeSwitch extends HTMLElement {
 	/*
 		Custom elements based theme switcher
 
@@ -23,22 +23,30 @@ export class ThemeSwitch extends HTMLElement {
 	constructor() {
 		super();
 		this.themes = this.getAttribute('themes').split(' ');
+		// if there is not set theme use default one
 		this.defaultTheme = this.getAttribute('default');
-		localStorage.setItem(this.getAttribute('key'), this.getAttribute('default') || '');
+		this.changeThemeEvent = new CustomEvent('theme-change', 
+			{detail: JSON.stringify(
+				{ themes: this.getAttribute('themes').split(' '), default: this.getAttribute('default')}
+			)}
+		);
 		this.switch();
 	}
 	
 	switch() {
-		let themeName = localStorage.getItem(this.getAttribute('key'));
-		let index = this.themes.indexOf(themeName);
+		this.dispatchEvent(this.changeThemeEvent);
+	}
+
+	defaultSwitcher() {
+		let themeName = document.querySelector(':root').className;
+		let index = this.themes.indexOf(themeName) || 0;
 		let length = this.themes.length;
-		
+
 		index += 1;
 		if (index >= length) {
 			index = 0;
 		}
-		
-		localStorage.setItem(this.getAttribute('key'), this.themes[index]);
+
 		document.querySelector(':root').className = this.themes[index];
 	}
 }
