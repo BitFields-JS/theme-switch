@@ -39,5 +39,12 @@
     <button id="theme-switch" onclick="parentNode.switch()">Toggle Theme</button>
    </theme-switch>
 ```
+```js
+let themeSwitch = document.getElementById('theme-switch');
 
-[![Node.js Package](https://github.com/BitFields/theme-switch/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/BitFields/theme-switch/actions/workflows/npm-publish.yml)
+	themeSwitch.addEventListener('theme-change', function onThemeChange(event) {
+		// change the theme and save current theme as state to localStorage to backend etc.
+      // extends ThemeSwitcher class for extra switching functionality, default is to rotate themes.
+		this.defaultSwitcher();
+	});
+```
