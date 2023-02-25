@@ -15,35 +15,41 @@ class ThemeSwitch extends HTMLElement {
 
 			## Add this custom element to your HTML
 
-			<theme-switch
-				themes="theme-blue-yellow theme-dark-silver theme-deep-purple" default="theme-blue-yellow"
-				storage-key="my-themes">
-				<button id="theme-switch" onclick="parentNode.dispatch()">Toggle Theme</button>
-			</theme-switch>
+			<theme-switch themes="dark-theme light-theme" storage-key="your-key-name">
+				<!-- this could be checkbox or something else -->
+            	<button onclick="this.parentNode.dispatch()">Switch Theme</button>
+          	</theme-switch>
 	*/
 	constructor() {
 		super();
+		this.style.display = 'inline-block';
 		this.themes = this.getAttribute('themes').split(' ');
 		this.changeThemeEvent = new Event('theme-change');
-		let savedThemeName = localStorage.getItem(this.getAttribute('storage-ley'));
+		let savedThemeName = localStorage.getItem(this.getAttribute('storage-key'));
 		if (savedThemeName !== undefined) {
 			document.querySelector(':root').className = savedThemeName;
 		} else {
-			this.switch();
+			this.switch(1);
 		}
+		this.addEventListener('theme-change', function onThemeChange() {
+			this.switch(1);
+		});
 	}
 	
 	dispatch() {
 		this.dispatchEvent(this.changeThemeEvent);
 	}
 
-	switch() {
+	switch(by) {
 		let themeName = document.querySelector(':root').className;
 		let index = this.themes.indexOf(themeName) || 0;
 		let length = this.themes.length;
 
-		index += 1;
+		index += by || 1;
 		if (index >= length) {
+			index = 0;
+		}
+		if (index <  0) {
 			index = 0;
 		}
 
@@ -53,11 +59,3 @@ class ThemeSwitch extends HTMLElement {
 }
 
 window.customElements.define('theme-switch', ThemeSwitch);
-
-(function initThemeSwitch() {
-	let themeSwitch = document.getElementsByTagName('theme-switch')[0];
-	themeSwitch.addEventListener('theme-change', function onThemeChange(event) {
-		this.switch();
-	});
-
-})();
