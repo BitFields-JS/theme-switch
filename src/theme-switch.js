@@ -10,37 +10,34 @@ class ThemeSwitch extends HTMLElement {
 				--secondary-color: #cccc33;
 				--background-color: #051414;
 			}
+			
+			more themes here...
 
 			## Add this custom element to your HTML
 
 			<theme-switch
 				themes="theme-blue-yellow theme-dark-silver theme-deep-purple" default="theme-blue-yellow"
-				key="my-themes">
+				storage-key="my-themes">
 				<button id="theme-switch" onclick="parentNode.dispatch()">Toggle Theme</button>
 			</theme-switch>
-
-
-			## Add your way of saving the theme name to preserve it on next page load
-
-			themeSwitch.addEventListener('theme-change', function onThemeChange(event) {
-				// change the theme and save current theme as state to localStorage to backend etc.
-				// replace default function with your own
-				this.switch((themeName) => localStorage.setItem('andromeda-web', themeName));
-			});
 	*/
 	constructor() {
 		super();
 		this.themes = this.getAttribute('themes').split(' ');
-		this.defaultTheme = this.getAttribute('default');
 		this.changeThemeEvent = new Event('theme-change');
-		this.switch();
+		let savedThemeName = localStorage.getItem(this.getAttribute('storage-ley'));
+		if (savedThemeName !== undefined) {
+			document.querySelector(':root').className = savedThemeName;
+		} else {
+			this.switch();
+		}
 	}
 	
 	dispatch() {
 		this.dispatchEvent(this.changeThemeEvent);
 	}
 
-	switch(saveStateFn) {
+	switch() {
 		let themeName = document.querySelector(':root').className;
 		let index = this.themes.indexOf(themeName) || 0;
 		let length = this.themes.length;
@@ -51,25 +48,16 @@ class ThemeSwitch extends HTMLElement {
 		}
 
 		document.querySelector(':root').className = this.themes[index];
-
-		// use some function to save theme name to e.g localStorage, Vuex store, or any other store
-		if (typeof saveStateFn === 'function') {
-			saveStateFn(themeName);
-		}
+		localStorage.setItem(this.getAttribute('storage-key'), this.themes[index]);
 	}
 }
 
 window.customElements.define('theme-switch', ThemeSwitch);
 
+(function initThemeSwitch() {
+	let themeSwitch = document.getElementsByTagName('theme-switch')[0];
+	themeSwitch.addEventListener('theme-change', function onThemeChange(event) {
+		this.switch();
+	});
 
-// example of how to switch theme and store theme name to localStorage
-// (function init() {
-// 	let themeSwitch = document.getElementById('theme-switch');
-
-// 	themeSwitch.addEventListener('theme-change', function onThemeChange(event) {
-// 		// change the theme and save current theme as state to localStorage to backend etc.
-// 		// replace default function with your own
-// 		this.switch((themeName) => localStorage.setItem('andromeda-web', themeName));
-// 	});
-
-// })();
+})();
